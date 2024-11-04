@@ -4,7 +4,7 @@
 // |__/|__/_/_/ /_/ /___/\__/\__/
 //
 // WiFiSec ////// originally created by Alex Haley 2024 (C)
-// version: 1.0
+// version: 1.1rc
 //
 // desc:
 //      this is a little cli game where you create room and place routers in it,
