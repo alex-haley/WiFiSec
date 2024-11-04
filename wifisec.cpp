@@ -4,7 +4,7 @@
 // |__/|__/_/_/ /_/ /___/\__/\__/
 //
 // WiFiSec ////// originally created by Alex Haley 2024 (C)
-// version: 1.0
+// version: 1.2
 //
 // desc:
 //      this is a little cli game where you create room and place routers in it,
@@ -87,22 +87,39 @@ int main(void)
 
         if (ch == 1)
         {
+            if (x != 1 && y != 1)
+            {
+              if (cMap[x][y] == '~')
+                cMap[x][y] = '.';
+              x = 1;
+              y = 1;
+            }
             movement();
         }
         else if (ch == 2)
         {
             std::cout << "placed routers:\n";
             for (auto it : dict)
-                std::cout << it.first << ": " << it.second << "\n";
+                std::cout << "\t" << it.first << ": " << it.second << "\n";
             std::string rnam;
-            std::cout << "which router you want to delete?\n(type r to return to the menu) ";
-            std::cin >> rnam;
-            if (rnam == "r")
+            bool esc = false;
+            std::cout << "which router you want to delete?\n(type `0` to exit this menu) ";
+            while (!esc)
             {
-              std::cout << "no input provided. aborting\n";
-            }
-            else {
-              delete_router(rnam);
+              std::cin >> rnam;
+              if (rnam == "0")
+              {
+                esc = true;
+              }
+              for (int i = 0; i < sizeof(names)/sizeof(names[0]); i++)
+              {
+                if (rnam == names[i])
+                {
+                  delete_router(rnam);
+                  esc = true;
+                }
+              }
+              std::cout << "error: router with that name doesnt exist.\n(type `0` to exit this menu) ";
             }
         }
         else if (ch == 3)
