@@ -1,7 +1,14 @@
-=============== WiFiSec ================
+# WiFiSec
 
 game where you place routers and calculate its signal strength.
 
-nothing so interesting, but im stuck with calculating this signal strength for both X and Y directions, with was pretty tough
-in version 1.0 i calculate signal strength with this formula:
-1 - (sqrt(pow(xrouter-X) + pow(yrouter-Y)) / 8)
+## TO-DO: Change power calculation formula (soon)
+
+```
+to run this thing, you need to copy this repo
+to your system and compile wifisec.cpp with gcc compiler (use g++)
+```
+```
+caution:
+compiled version in repo contains old version of program and not recommended to use
+```
