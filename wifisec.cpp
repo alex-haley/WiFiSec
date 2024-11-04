@@ -4,7 +4,7 @@
 // |__/|__/_/_/ /_/ /___/\__/\__/
 //
 // WiFiSec ////// originally created by Alex Haley 2024 (C)
-// version: 1.2
+// version: 1.2a
 //
 // desc:
 //      this is a little cli game where you create room and place routers in it,
@@ -222,7 +222,13 @@ void check_signal(std::string s)
         }
 
         answer = (1 - (cyper / 8.0)-0.5) + (1 - (cxper / 4.0)-0.5);
-        std::cout << answer;
+        if (answer <= 0)
+        {
+          std::cout << "router is out of bounds.";
+        }
+        else {
+          std::cout << answer;
+        }
     }
 }
 
