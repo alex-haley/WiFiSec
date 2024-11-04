@@ -26,9 +26,6 @@
 #include <termios.h>
 #include "wifisec.hpp"
 
-// define save file location
-#define DATAFILE "/var/wifisec.data" // file for user data
-
 // define input keys
 #define W_KEY 119
 #define A_KEY 97
@@ -44,7 +41,7 @@ int l = 80;
 
 // define room
 char cMap[17][80] = {
-    "############################################################  WiFiSec(R)       ",
+    "############################################################  WiFiSec          ",
     "#..........................................................#  your coordinates:",
     "#..........................................................#  x: 0",
     "#..........................................................#  y: 0",
@@ -94,12 +91,19 @@ int main(void)
         }
         else if (ch == 2)
         {
+            std::cout << "placed routers:\n";
             for (auto it : dict)
                 std::cout << it.first << ": " << it.second << "\n";
             std::string rnam;
-            std::cout << "which router you want to delete? ";
+            std::cout << "which router you want to delete?\n(type r to return to the menu) ";
             std::cin >> rnam;
-            delete_router(rnam);
+            if (rnam == "r")
+            {
+              std::cout << "no input provided. aborting\n";
+            }
+            else {
+              delete_router(rnam);
+            }
         }
         else if (ch == 3)
         {
@@ -131,6 +135,7 @@ void metalrender()
     std::cout << "to exit press esc; to place router press R;\n";
 }
 
+// checking router signal
 void check_signal(std::string s)
 {
     float answer;
@@ -204,6 +209,7 @@ void check_signal(std::string s)
     }
 }
 
+// invoke cheking for different routers (up to 4)
 void invoke_checking()
 {
     if (setval == 1)
@@ -253,7 +259,7 @@ void movement()
 
     while (ch != (char)ESC_KEY)
     {
-        if (ch == 'w')
+        if (ch == (char)W_KEY)
         {
             if (cMap[x][y] == '.' || cMap[x][y] == '~')
             {
@@ -279,7 +285,7 @@ void movement()
                 invoke_checking();
             }
         }
-        if (ch == 'a')
+        if (ch == (char)A_KEY)
         {
             if (cMap[x][y] == '.' || cMap[x][y] == '~')
             {
@@ -305,7 +311,7 @@ void movement()
                 invoke_checking();
             }
         }
-        if (ch == 's')
+        if (ch == (char)S_KEY)
         {
             if (cMap[x][y] == '.' || cMap[x][y] == '~')
             {
@@ -331,7 +337,7 @@ void movement()
                 invoke_checking();
             }
         }
-        if (ch == 'd')
+        if (ch == (char)D_KEY)
         {
             if (cMap[x][y] == '.' || cMap[x][y] == '~')
             {
@@ -366,6 +372,7 @@ void movement()
     }
 }
 
+// calculating coordinates of player pointer on the map
 void calc_coordinates()
 {
     cMap[2][65] = y / 10 + 48;
@@ -628,6 +635,8 @@ void delete_router(std::string rnam)
     setval -= 1;
 }
 
+// function for editing terminal mode for getch()
+// cause on linux theres no getch() function
 void set_keypress(void)
 {
     struct termios new_settings;
