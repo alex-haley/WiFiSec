@@ -1,5 +1,6 @@
 #pragma once
 
+void m_menu();
 void metalrender();
 void movement();
 void create_router();

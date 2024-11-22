@@ -21,6 +21,7 @@
 #include <array>
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <cstdlib>
 #include <map>
 #include <termios.h>
@@ -73,8 +74,16 @@ std::string names[10];
 
 int main(void)
 {
+    m_menu();
+    return 0;
+}
+
+void m_menu()
+{
+    std::cin.exceptions(std::istream::failbit | std::istream::badbit);
+
     int ch;
-    while (ch != 4)
+    try
     {
         metalrender();
 
@@ -121,6 +130,7 @@ int main(void)
               }
               std::cout << "error: router with that name doesnt exist.\n(type `0` to exit this menu) ";
             }
+            m_menu();
         }
         else if (ch == 3)
         {
@@ -132,9 +142,19 @@ int main(void)
                 }
             }
             dict.clear();
+            m_menu();
         }
+        else if (ch == 4)
+        {
+            return;
+        }
+        else 
+        {
+            m_menu();
+        }
+    } catch(std::istream::failure) {
+        std::cout << "\noops! looks like you entered incompatible character!\n (DEBUG): WRONG INPUT TYPE\n";
     }
-    return 0;
 }
 
 // renders the room
@@ -393,6 +413,7 @@ void movement()
         }
         std::cin >> ch;
     }
+    m_menu();
 }
 
 // calculating coordinates of player pointer on the map
